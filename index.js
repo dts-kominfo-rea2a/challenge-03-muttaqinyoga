@@ -21,11 +21,33 @@ const dataBelanjaan = [
 ];
 
 // boleh dimodifikasi bila ingin menggunakan deklarasi fungsi yang normal
-const listBelanjaan = null;
+const listBelanjaan = (belanjaan) => {
+  let items = [];
+  
+  for(let i=0; i<belanjaan.length; i++){
+    items.push('- '+belanjaan[i].nama+ ' x '+ belanjaan[i].kuantitas);
+  }
+
+  return items;
+}
 
 // boleh dimodifikasi bila ingin menggunakan deklarasi fungsi yang normal
-const totalBelanjaan = null;
+const totalBelanjaan = (belanjaan) => {
+  let totalPrice = 0;
+  for(let i=0; i<belanjaan.length; i++){
+      totalPrice += parseInt(belanjaan[i].harga) * parseInt(belanjaan[i].kuantitas);
+  } 
+  
+  return totalPrice;
+}
 
+// Format to rupiah function
+const formatRupiah = (number) => {
+  return new Intl.NumberFormat("id-ID", {
+    style: 'currency',
+    currency: 'IDR'
+  }).format(number);
+}
 // ! JANGAN DIMODIFIKASI
 const main = () => {
   console.log("Selamat datang customer");
@@ -33,7 +55,7 @@ const main = () => {
   console.log("Belanjaan Anda adalah:");
   console.log(listBelanjaan?.(dataBelanjaan)?.join("\n"));
   console.log(
-    "\nTotal Belanjaan Anda adalah Rp. " + totalBelanjaan?.(dataBelanjaan)
+    "\nTotal Belanjaan Anda adalah " + formatRupiah(totalBelanjaan?.(dataBelanjaan))
   );
 };
 
